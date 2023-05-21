@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qjc.midjourney.dao.Member1Dao">
+
+    <insert id="insert">
+        insert into member1 values
+        <foreach collection="list" item="item" separator=",">
+            <trim suffix=")" prefix="(">
+                #{id},
+                #{username},
+                #{password},
+                #{amount},
+                #{normalCount},
+                #{createed_at},
+                #{parentMessageId}
+            </trim>
+        </foreach>
+    </insert>
+</mapper>

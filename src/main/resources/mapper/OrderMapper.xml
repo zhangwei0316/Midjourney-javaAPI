@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qjc.midjourney.dao.OrderDao">
+
+    <resultMap id="detailMap" type="com.qjc.midjourney.dto.Order">
+        <result column="id" property="id"></result>
+        <result column="message_id" property="messageId"></result>
+        <result column="msg_hash" property="msgHash"></result>
+        <result column="base64" property="base64"></result>
+        <result column="url" property="url"></result>
+        <result column="prompt" property="prompt"></result>
+    </resultMap>
+
+    <insert id="insert" >
+        insert into `order`(id,prompt) value (
+            #{id},
+            #{prompt}
+        )
+    </insert>
+
+    <update id="update">
+        update `order`
+        <set>
+            <if test="messageId != null and messageId != ''">
+                message_id = #{messageId},
+            </if>
+            <if test="msgHash != null and msgHash != ''">
+                msg_hash = #{msgHash},
+            </if>
+            <if test="base64 != null and base64 != ''">
+                base64 = #{base64},
+            </if>
+            <if test="url != null and url != ''">
+                url = #{url},
+            </if>
+            <if test="prompt != null and prompt != ''">
+                prompt = #{prompt}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="findById" resultMap="detailMap">
+        select * from `order` where id = #{id}
+    </select>
+
+    <select id="findByPrompt" resultMap="detailMap">
+        select * from `order` where prompt = #{prompt}
+    </select>
+</mapper>
